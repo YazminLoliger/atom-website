@@ -3,9 +3,12 @@
     --bg-card: #161616;
     --text-primary: #ffffff;
     --text-secondary: #a0a0a0;
-    --accent-primary: #00f3ff; /* Cyan Neon */
-    --accent-secondary: #7000ff; /* Purple Neon */
-    --accent-success: #00ff9d; /* Terminal Green */
+    --accent-primary: #00f3ff;
+    /* Cyan Neon */
+    --accent-secondary: #7000ff;
+    /* Purple Neon */
+    --accent-success: #00ff9d;
+    /* Terminal Green */
     --font-main: 'Inter', sans-serif;
     --font-mono: 'Fira Code', monospace;
     --transition: all 0.3s ease;
@@ -26,7 +29,12 @@ body {
 }
 
 /* Typography */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     font-weight: 700;
     line-height: 1.2;
     margin-bottom: 1rem;
@@ -34,9 +42,23 @@ h1, h2, h3, h4, h5, h6 {
 
 h1 {
     font-size: 3.5rem;
-    background: linear-gradient(to right, #fff, var(--text-secondary));
+    background: linear-gradient(135deg, #fff 0%, var(--accent-primary) 50%, #fff 100%);
+    background-size: 200% 200%;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    animation: gradient-shift 8s ease infinite;
+}
+
+@keyframes gradient-shift {
+
+    0%,
+    100% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
 }
 
 h2 {
@@ -77,13 +99,38 @@ a {
     background: transparent;
     border-color: var(--accent-primary);
     color: var(--accent-primary);
-    box-shadow: 0 0 10px rgba(0, 243, 255, 0.1);
+    box-shadow: 0 0 20px rgba(0, 243, 255, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: var(--accent-primary);
+    transform: translate(-50%, -50%);
+    transition: width 0.5s, height 0.5s;
+}
+
+.btn-primary:hover::before {
+    width: 300px;
+    height: 300px;
 }
 
 .btn-primary:hover {
-    background: var(--accent-primary);
     color: var(--bg-dark);
-    box-shadow: 0 0 20px rgba(0, 243, 255, 0.4);
+    box-shadow: 0 0 40px rgba(0, 243, 255, 0.6), 0 0 80px rgba(0, 243, 255, 0.3);
+}
+
+.btn-primary span,
+.btn-primary:hover {
+    position: relative;
+    z-index: 1;
 }
 
 .section-padding {
@@ -160,6 +207,19 @@ nav {
 
 .hero-content {
     max-width: 800px;
+    animation: fadeInUp 1s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .hero-tag {
@@ -186,8 +246,9 @@ nav {
 }
 
 .service-card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-8px);
     border-color: var(--accent-primary);
+    box-shadow: 0 10px 40px rgba(0, 243, 255, 0.2), 0 0 20px rgba(0, 243, 255, 0.1);
 }
 
 .service-icon {
@@ -214,6 +275,13 @@ nav {
     border-radius: 8px;
     overflow: hidden;
     border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: var(--transition);
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--accent-primary);
+    box-shadow: 0 8px 30px rgba(0, 243, 255, 0.15);
 }
 
 .project-content {
@@ -234,9 +302,23 @@ nav {
     font-family: var(--font-mono);
 }
 
-.tag.botpress { color: #ff6b6b; border: 1px solid rgba(255, 107, 107, 0.3); }
-.tag.n8n { color: #ff9f43; border: 1px solid rgba(255, 159, 67, 0.3); }
-.tag.zapier { color: #ff9f43; border: 1px solid #ff4f00; color: #ff4f00; } /* Zapier Orange */
+.tag.botpress {
+    color: #ff6b6b;
+    border: 1px solid rgba(255, 107, 107, 0.3);
+}
+
+.tag.n8n {
+    color: #ff9f43;
+    border: 1px solid rgba(255, 159, 67, 0.3);
+}
+
+.tag.zapier {
+    color: #ff9f43;
+    border: 1px solid #ff4f00;
+    color: #ff4f00;
+}
+
+/* Zapier Orange */
 
 /* Contact Section */
 .contact-wrapper {
@@ -279,7 +361,15 @@ footer {
 
 /* Responsive */
 @media (max-width: 768px) {
-    h1 { font-size: 2.5rem; }
-    .nav-links { display: none; }
-    .contact-wrapper { grid-template-columns: 1fr; }
+    h1 {
+        font-size: 2.5rem;
+    }
+
+    .nav-links {
+        display: none;
+    }
+
+    .contact-wrapper {
+        grid-template-columns: 1fr;
+    }
 }
